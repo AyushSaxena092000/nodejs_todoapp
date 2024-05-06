@@ -23,6 +23,7 @@ export const newTask = async (req, res, next) => {
 export const getMyTask = async (req, res, next) => {
   try {
     const userid = req.user._id;
+
     const tasks = await Task.find({ user: userid });
 
     res.status(200).json({
@@ -37,10 +38,12 @@ export const getMyTask = async (req, res, next) => {
 export const updateTask = async (req, res, next) => {
   try {
     const task = await Task.findById(req.params.id);
+
     if (!task) return next(new ErrorHandler("Task not found", 404));
 
     task.isCompleted = !task.isCompleted;
     await task.save();
+
     res.status(200).json({
       success: true,
       message: "Task Updated!",
@@ -58,8 +61,8 @@ export const deleteTask = async (req, res, next) => {
     await task.deleteOne();
 
     res.status(200).json({
-      success: true,
       message: "Task Deleted!",
+      success: true,
     });
   } catch (error) {
     next(error);

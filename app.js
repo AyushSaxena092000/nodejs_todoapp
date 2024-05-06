@@ -12,7 +12,7 @@ config({
   path: "./data/config.env",
 });
 
-// using middleware
+// Using Middlewares
 app.use(express.json());
 app.use(cookieParser());
 app.use(
@@ -23,8 +23,7 @@ app.use(
   })
 );
 
-// using routes
-
+// Using routes
 app.use("/api/v1/users", userRouter);
 app.use("/api/v1/task", taskRouter);
 
@@ -32,6 +31,5 @@ app.get("/", (req, res) => {
   res.send("Nice working");
 });
 
-// using Error Middleware
-
+// Using Error Middleware
 app.use(errorMiddleware);
